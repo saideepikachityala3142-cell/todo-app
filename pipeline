@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "m 3.9.11"
+    }
+
+    stages {
+        stage('Echo version') {
+            steps {
+                // Get some code from a GitHub repository
+               bat 'echo print maven version'
+               bat 'mvn -version'
+            }
+        }
+        stage('Build') {
+            steps {
+               // git 'https://github.com/saideepikachityala3142-cell/todo-app.git'
+                bat "mvn clean package -DskipTests=true"
+            }
+        }
+        stage('unit Test'){
+            steps{
+                bat "mvn test"
+            }
+        }
+    }
+}
